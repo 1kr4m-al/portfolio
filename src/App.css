@@ -6,7 +6,7 @@
   justify-content: center;
   position: relative;
   padding: 100px 20px;
-  background-color: white;
+  background-color: #e8edf4;
 }
 
 /* En-tête */
@@ -435,7 +435,7 @@
   width: 210px;
   z-index: 10;
 
-  background-color: white;
+  background-color: #d9e3f2;
   border: 1px solid #ddd;
   border-radius: 10px;
 
@@ -1277,8 +1277,8 @@
 
 /* Effet au survol */
 .hero__boutons .bouton--accueil:hover {
-  background-color: #d7e0ed;
-  color: #30394a;
+  background-color: black;
+  color: #d9e3f2;
 
   transform: translateY(-4px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
@@ -1306,5 +1306,137 @@
   .hero__boutons .bouton--accueil {
     width: 100%;
     max-width: 280px;
+  }
+}
+
+
+/* ===================================== */
+/*         APPLE LIQUID GLASS            */
+/* ===================================== */
+
+/* Fond légèrement coloré pour faire ressortir le verre */
+.panneau {
+  background-color: #e8edf4;
+}
+
+/* Toutes les cartes */
+.experience__carte,
+.projets__carte,
+.competences__carte,
+.competences__langues,
+.competences__langue,
+.formation__carte {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 32px rgba(50, 65, 90, 0.10),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Soulèvement au survol */
+.experience__carte:hover,
+.projets__carte:hover,
+.competences__carte:hover,
+.competences__langues:hover,
+.competences__langue:hover,
+.formation__carte:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(255, 255, 255, 1);
+
+  box-shadow:
+    0 18px 45px rgba(50, 65, 90, 0.18),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* REFLET LUMINEUX */
+.experience__carte::after,
+.projets__carte::after,
+.competences__carte::after,
+.competences__langues::after,
+.competences__langue::after,
+.formation__carte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.05) 32%,
+    rgba(255, 255, 255, 0.75) 48%,
+    rgba(255, 255, 255, 0.15) 58%,
+    transparent 75%
+  );
+
+  transform: translateX(-130%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Le reflet traverse la carte */
+.experience__carte:hover::after,
+.projets__carte:hover::after,
+.competences__carte:hover::after,
+.competences__langues:hover::after,
+.competences__langue:hover::after,
+.formation__carte:hover::after {
+  transform: translateX(130%);
+}
+
+/* Petites étiquettes en verre */
+.experience__technologies span,
+.projets__technologies span,
+.competences__elements span {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 9px;
+  color: #354155;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Pour conserver la frise de formation */
+.formation__carte {
+  height: 100%;
+}
+
+/* Accessibilité : limiter les animations si demandé */
+@media (prefers-reduced-motion: reduce) {
+  .experience__carte,
+  .projets__carte,
+  .competences__carte,
+  .competences__langues,
+  .competences__langue,
+  .formation__carte {
+    transition: none;
+  }
+
+  .experience__carte::after,
+  .projets__carte::after,
+  .competences__carte::after,
+  .competences__langues::after,
+  .competences__langue::after,
+  .formation__carte::after {
+    display: none;
   }
 }
