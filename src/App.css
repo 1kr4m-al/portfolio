@@ -1440,3 +1440,237 @@
     display: none;
   }
 }
+
+
+/* ===================================== */
+/*        RESPONSIVE TELEPHONE           */
+/* ===================================== */
+
+@media (max-width: 700px) {
+
+  /* Le portfolio entier reste fixe */
+  .portfolio {
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Toutes les sections occupent un écran */
+  .hero,
+  .panneau {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+
+    transition: transform 0.8s
+      cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  /* ================================= */
+  /*          PAGE D'ACCUEIL           */
+  /* ================================= */
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 105px 5% 28px;
+
+    /* Scroll uniquement à l'intérieur de l'accueil */
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+
+    /* L'accueil attend au-dessus de l'écran */
+    transform: translateY(-100%);
+    z-index: 1;
+  }
+
+  /* L'accueil descend lorsqu'il devient actif */
+  .hero.hero--active {
+    transform: translateY(0);
+    z-index: 3;
+  }
+
+  /* Ancien accueil conservé pendant une transition */
+  .hero.hero--sortant {
+    transform: translateY(0);
+    z-index: 2;
+  }
+
+  /* Le contenu reste centré s'il y a assez de place */
+  .hero__contenu {
+    width: 100%;
+    flex: 0 0 auto;
+    margin: auto 0;
+  }
+
+  .hero__titre {
+    font-size: clamp(32px, 9vw, 55px);
+  }
+
+  .hero__introduction {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 25px;
+  }
+
+  /* L'animation d'apparition ne coupe pas les boutons */
+  .hero--visible .hero__apparition {
+    max-height: 1000px;
+  }
+
+  /* Boutons de l'accueil */
+  .hero__boutons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+  }
+
+  .hero__boutons .bouton--accueil {
+    width: 100%;
+    max-width: 310px;
+  }
+
+  /* Bas de la page dans le flux normal */
+  .hero__bas {
+    position: static;
+    flex-shrink: 0;
+    margin: 28px 0 0;
+    text-align: center;
+  }
+
+  /* ================================= */
+  /*       SECTIONS SECONDAIRES        */
+  /* ================================= */
+
+  .panneau {
+    display: block;
+    padding: 16px 5% 20px;
+    overflow: hidden;
+
+    /* Toutes les sections commencent en bas */
+    transform: translateY(100%);
+    z-index: 1;
+  }
+
+  /* Nouvelle section : glissement vers le haut */
+  .panneau.panneau--active {
+    transform: translateY(0);
+    z-index: 3;
+  }
+
+  /* Garder la section précédente en arrière-plan */
+  .panneau.panneau--sortant {
+    transform: translateY(0);
+    z-index: 2;
+  }
+
+  /* Compétences vient aussi du bas sur mobile */
+  .panneau.panneau--competences:not(.panneau--active):not(.panneau--sortant) {
+    transform: translateY(100%);
+  }
+
+  /* Scroll indépendant de chaque section */
+  .panneau .section__contenu {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 85px 0 25px;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Le menu flotte au-dessus des cartes */
+  .panneau .menu-navigation {
+    position: absolute;
+    top: 20px;
+    right: 5%;
+    z-index: 100;
+    margin: 0;
+  }
+
+  /* ================================= */
+  /*        CARTES RESPONSIVES         */
+  /* ================================= */
+
+  .experience__cartes,
+  .projets__grille,
+  .competences__grille {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .experience__carte,
+  .projets__carte,
+  .competences__carte {
+    padding: 20px;
+  }
+
+  /* Ne plus cacher les descriptions des projets */
+  .projets__description {
+    display: block;
+    font-size: 14px !important;
+  }
+
+  .projets__carte h3 {
+    font-size: 19px;
+  }
+
+  /* ================================= */
+  /*          FORMATION                */
+  /* ================================= */
+
+  /* On conserve le scroll par étapes */
+  .panneau--formation .section__contenu {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    overflow: hidden;
+    padding: 85px 0 15px;
+  }
+
+  .formation {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .formation__intro {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .formation__carte {
+    padding: 20px;
+  }
+
+  .formation__carte h3 {
+    font-size: 21px;
+  }
+
+  .formation__description {
+    font-size: 13px !important;
+    margin-top: 12px;
+  }
+}
+
+/* Respect du réglage de réduction des animations */
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  .hero,
+  .panneau {
+    transition: none;
+  }
+}

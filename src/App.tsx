@@ -363,6 +363,7 @@ function App() {
   const [nombreLettres, setNombreLettres] = useState(0);
   const [presentationVisible, setPresentationVisible] = useState(false);
   const [pageActive, setPageActive] = useState<Page>("accueil");
+  const [pageSortante, setPageSortante] = useState<Page | null>(null);
   const [menuOuvert, setMenuOuvert] = useState(false);
 
   // Animation du texte au clavier
@@ -386,13 +387,36 @@ function App() {
   const [premiereLigne, deuxiemeLigne] = texteAffiche.split("\n");
   const deuxiemeLigneCommencee = texteAffiche.includes("\n");
 
+  
   function changerPage(page: Page) {
+    if (page === pageActive) {
+      setMenuOuvert(false);
+      return;
+    }
+
+    setPageSortante(pageActive);
     setPageActive(page);
     setMenuOuvert(false);
   }
 
+
   return (
-    <main className="portfolio">
+    
+  <main
+    className="portfolio"
+    onTransitionEnd={(event) => {
+      const cible = event.target as HTMLElement;
+
+      if (
+        event.propertyName === "transform" &&
+        (cible.classList.contains("panneau--active") ||
+          cible.classList.contains("hero--active"))
+      ) {
+        setPageSortante(null);
+      }
+    }}
+  >
+
 
       {/* LIEN DE CONTACT */}
       {/*
@@ -410,9 +434,16 @@ function App() {
 
 
       {/* PAGE D'ACCUEIL */}
+      
       <section
-        className={`hero ${presentationVisible ? "hero--visible" : ""}`}
+        className={`hero ${presentationVisible ? "hero--visible" : ""} ${
+          pageActive === "accueil" ? "hero--active" : ""
+        } ${
+          pageSortante === "accueil" ? "hero--sortant" : ""
+        }`}
+        inert={pageActive !== "accueil"}
       >
+
 
 
         
@@ -503,13 +534,17 @@ function App() {
 
       {/* SECTIONS COULISSANTES */}
       {sections.map((section) => (
+        
         <section
           key={section.id}
           className={`section section--pleine panneau panneau--${section.id} ${
             pageActive === section.id ? "panneau--active" : ""
+          } ${
+            pageSortante === section.id ? "panneau--sortant" : ""
           }`}
           inert={pageActive !== section.id}
         >
+
           <div className={`menu-navigation ${menuOuvert ? "menu-navigation--ouvert" : ""}`}>
 
               <button
