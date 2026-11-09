@@ -1,0 +1,1310 @@
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 100px 20px;
+  background-color: white;
+}
+
+/* En-tête */
+.hero__entete {
+  position: absolute;
+  top: 30px;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+}
+
+/* Contenu principal */
+.hero__contenu {
+  max-width: 850px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero__sur-titre {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Titre */
+.hero__titre {
+  font-size: clamp(40px, 7vw, 75px);
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero__ligne,
+.hero__nom {
+  display: block;
+}
+
+.hero__nom {
+  color: #333;
+}
+
+/* Curseur clavier */
+.curseur {
+  display: inline-block;
+  width: 3px;
+  height: 0.8em;
+  margin-left: 5px;
+  background-color: black;
+  animation: clignoter 0.8s infinite;
+}
+
+@keyframes clignoter {
+  50% {
+    opacity: 0;
+  }
+}
+
+.curseur--cache {
+  display: none;
+}
+
+/* Apparition de la présentation */
+.hero__apparition {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+
+.hero--visible .hero__apparition {
+  max-height: 400px;
+}
+
+.hero__apparition-interieur {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.hero--visible .hero__apparition-interieur {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Paragraphe */
+.hero__introduction {
+  margin: 35px auto 0;
+  max-width: 650px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.hero__introduction strong {
+  color: #111;
+}
+
+/* Boutons */
+.hero__boutons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.bouton {
+  padding: 14px 22px;
+  border: 1px solid black;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.bouton--principal {
+  background-color: black;
+  color: white;
+}
+
+.bouton--secondaire {
+  background-color: white;
+  color: black;
+}
+
+.bouton:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* Bas de page */
+.hero__bas {
+  position: absolute;
+  bottom: 25px;
+  font-size: 11px;
+  color: #777;
+}
+
+/* Sections */
+.section {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 10%;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.section__contenu {
+  max-width: 800px;
+}
+
+.section__numero {
+  color: #777;
+}
+
+.section h2 {
+  font-size: 40px;
+  margin: 15px 0;
+}
+
+.section p {
+  font-size: 17px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* Téléphone */
+@media (max-width: 600px) {
+  .hero__entete {
+    font-size: 9px;
+  }
+
+  .hero--visible .hero__apparition {
+    max-height: 600px;
+  }
+
+  .hero__boutons {
+    flex-direction: column;
+  }
+
+  .hero__introduction {
+    font-size: 15px;
+  }
+
+  .section h2 {
+    font-size: 30px;
+  }
+}
+
+/* Chaque page occupe exactement un écran */
+.hero,
+.section--pleine {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Navigation entre les sections */
+.section__navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 35px;
+}
+
+/* Style des vrais boutons React */
+.bouton {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+
+/* Conteneur principal : aucun scroll */
+.portfolio {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* L'accueil reste en arrière-plan */
+.hero {
+  height: 100dvh;
+  min-height: 0;
+}
+
+/* Sections qui glissent */
+.panneau {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+
+  background-color: white;
+  z-index: 1;
+
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+/* Expérience : commence à gauche */
+.panneau--experience {
+  transform: translateX(-100%);
+}
+
+/* Projets : commence en bas */
+.panneau--projets {
+  transform: translateY(100%);
+}
+
+/* Formation : commence à droite */
+.panneau--formation {
+  transform: translateX(100%);
+}
+
+/* La section sélectionnée prend toute la place */
+.panneau--active {
+  transform: translate(0, 0);
+  z-index: 2;
+}
+
+
+/* SECTION EXPERIENCE */
+
+.panneau--experience {
+  padding: 40px 6%;
+}
+
+.panneau--experience .section__contenu {
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* Introduction */
+.experience__intro {
+  max-width: 800px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Placement des cartes */
+.experience__cartes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* Carte */
+.experience__carte {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 25px;
+  background-color: #fafafa;
+
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+/* Effet au survol */
+.experience__carte:hover {
+  border-color: black;
+  transform: translateY(-5px);
+}
+
+/* Numéro et année */
+.experience__carte-haut {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.experience__numero {
+  font-size: 13px;
+  color: #888;
+}
+
+.experience__annee {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Titres */
+.experience__carte h3 {
+  font-size: 22px;
+  margin: 0 0 10px;
+}
+
+.experience__carte h4 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 5px;
+}
+
+/* Lieu */
+.experience__lieu {
+  font-size: 13px !important;
+  color: #888 !important;
+  margin: 0;
+}
+
+/* Ligne de séparation */
+.experience__separateur {
+  height: 1px;
+  background-color: #ddd;
+  margin: 20px 0;
+}
+
+/* Description */
+.experience__description {
+  font-size: 14px !important;
+  line-height: 1.6;
+  margin: 0 0 15px;
+}
+
+/* Liste des missions */
+.experience__carte ul {
+  padding-left: 18px;
+  margin: 0 0 20px;
+}
+
+.experience__carte li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Technologies / compétences */
+.experience__technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.experience__technologies span {
+  padding: 7px 12px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Adaptation aux petits écrans */
+@media (max-width: 700px) {
+  .panneau--experience {
+    padding: 15px 5%;
+  }
+
+  .experience__cartes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .experience__carte {
+    padding: 12px;
+  }
+
+  .experience__carte h3 {
+    font-size: 17px;
+  }
+
+  .experience__intro {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+}
+
+
+
+/* MENU DEROULANT */
+
+.menu-navigation {
+  position: absolute;
+  top: 30px;
+  right: 5%;
+  width: 210px;
+  z-index: 10;
+
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.menu-navigation:hover {
+  border-color: #999;
+}
+
+/* Partie toujours visible du menu */
+.menu-navigation__bouton {
+  width: 100%;
+  padding: 14px 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: transparent;
+  border: none;
+  color: black;
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Flèche animée */
+.menu-navigation__fleche {
+  display: inline-block;
+  font-size: 20px;
+  transition: transform 0.35s ease;
+}
+
+.menu-navigation--ouvert .menu-navigation__fleche {
+  transform: rotate(180deg);
+}
+
+/* Contenu caché du menu */
+.menu-navigation__liste {
+  display: flex;
+  flex-direction: column;
+
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease;
+}
+
+/* Ouverture du menu */
+.menu-navigation--ouvert .menu-navigation__liste {
+  max-height: 250px;
+  opacity: 1;
+}
+
+/* Boutons de navigation */
+.menu-navigation__liste button {
+  width: 100%;
+  padding: 13px 18px;
+
+  background-color: transparent;
+  border: none;
+  color: #333;
+
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.menu-navigation__liste button:hover {
+  background-color: #f2f2f2;
+}
+
+
+/* SECTION PROJETS */
+
+.panneau--projets {
+  padding: 40px 6%;
+}
+
+.panneau--projets .section__contenu {
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* Introduction */
+.projets__intro {
+  max-width: 800px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Grille des projets */
+.projets__grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Carte */
+.projets__carte {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.projets__carte:hover {
+  transform: translateY(-5px);
+  border-color: black;
+}
+
+/* Haut de la carte */
+.projets__carte-haut {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.projets__numero {
+  font-size: 13px;
+  color: #999;
+}
+
+.projets__categorie {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Titre */
+.projets__carte h3 {
+  font-size: 21px;
+  margin: 0 0 10px;
+  color: #111;
+}
+
+/* Description */
+.projets__description {
+  font-size: 14px !important;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 20px;
+}
+
+/* Technologies */
+.projets__technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.projets__technologies span {
+  padding: 6px 11px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Petits écrans : cartes compactes */
+@media (max-width: 700px) {
+  .panneau--projets {
+    padding: 50px 4% 15px;
+  }
+
+  .panneau--projets h2 {
+    font-size: 26px;
+  }
+
+  .projets__intro {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .projets__grille {
+    gap: 8px;
+  }
+
+  .projets__carte {
+    padding: 10px;
+  }
+
+  .projets__carte h3 {
+    font-size: 15px;
+  }
+
+  .projets__categorie {
+    font-size: 10px;
+  }
+
+  .projets__description {
+    display: none;
+  }
+
+  .projets__technologies {
+    gap: 4px;
+  }
+
+  .projets__technologies span {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+}
+
+
+/* SCROLL DES SECTIONS */
+
+/* Les sections secondaires peuvent défiler */
+.panneau {
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: block;
+  padding: 30px 6% 50px;
+
+  scrollbar-width: thin;
+  overscroll-behavior-y: contain;
+}
+
+/* Contenu de chaque section */
+.panneau .section__contenu {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le menu reste en haut pendant le scroll */
+.panneau .menu-navigation {
+  position: sticky;
+  top: 12px;
+  right: auto;
+
+  align-self: flex-end;
+  order: -1;
+
+  z-index: 20;
+  margin-bottom: 15px;
+}
+
+/* L'accueil reste figé */
+.hero {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Le panneau contient le menu et le contenu */
+.panneau {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* Le menu flotte au-dessus du contenu */
+.panneau .menu-navigation {
+  position: absolute;
+  top: 25px;
+  right: 6%;
+  z-index: 100;
+
+  margin: 0;
+}
+
+/* Seul le contenu de la section peut scroller */
+.panneau .section__contenu {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 65px 0 25px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
+
+
+
+/* FORMATION DYNAMIQUE */
+
+/* Le contenu de la formation ne scrolle plus normalement */
+.panneau--formation .section__contenu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 65px 0 20px;
+}
+
+.panneau--formation {
+  overflow: hidden;
+}
+
+/* Conteneur principal */
+.formation {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Introduction */
+.formation__intro {
+  max-width: 750px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 20px;
+  flex-shrink: 0;
+}
+
+/* Fenêtre qui masque les autres étapes */
+.formation__fenetre {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: pan-x;
+}
+
+/* Piste verticale */
+.formation__piste {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Une étape prend toute la hauteur de la fenêtre */
+.formation__etape {
+  flex: 0 0 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0 5px 0 0;
+}
+
+/* Carte */
+.formation__carte {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fafafa;
+  padding: 28px 35px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Année en haut de la carte */
+.formation__periode {
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #777;
+}
+
+/* Contenu central */
+.formation__details {
+  max-width: 750px;
+}
+
+.formation__etape-numero {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+.formation__carte h3 {
+  font-size: clamp(22px, 3vw, 34px);
+  color: #111;
+  margin: 12px 0;
+}
+
+.formation__carte h4 {
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.formation__lieu {
+  font-size: 13px !important;
+  color: #888 !important;
+  margin: 0;
+}
+
+.formation__description {
+  max-width: 650px;
+  font-size: 15px !important;
+  line-height: 1.6;
+  color: #555;
+  margin: 20px 0 0;
+}
+
+/* Barre de navigation sous la carte */
+.formation__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 0 5px;
+  flex-shrink: 0;
+}
+
+.formation__compteur {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.formation__indication {
+  font-size: 13px;
+  color: #777;
+  animation: rebondIndication 1.8s ease-in-out infinite;
+}
+
+.formation__fleches {
+  display: flex;
+  gap: 8px;
+}
+
+.formation__fleches button {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.formation__fleches button:hover:not(:disabled) {
+  background-color: #eee;
+}
+
+.formation__fleches button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Animation qui laisse entrevoir la carte suivante */
+.formation__piste--indice {
+  animation: apercuSuivant 5s 1.5s infinite;
+}
+
+@keyframes apercuSuivant {
+  0%, 65%, 100% {
+    transform: translateY(0);
+  }
+
+  76% {
+    transform: translateY(-55px);
+  }
+
+  86% {
+    transform: translateY(-42px);
+  }
+
+  94% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rebondIndication {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .formation__intro {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .formation__carte {
+    padding: 25px 20px;
+  }
+
+  .formation__periode {
+    left: 20px;
+  }
+
+  .formation__carte h3 {
+    font-size: 22px;
+  }
+
+  .formation__description {
+    font-size: 13px !important;
+  }
+
+  .formation__indication {
+    font-size: 11px;
+    max-width: 160px;
+    text-align: center;
+  }
+}
+
+/* Petits écrans en hauteur */
+@media (max-height: 600px) {
+  .formation__carte {
+    padding: 20px;
+  }
+
+  .formation__description {
+    margin-top: 10px;
+    font-size: 12px !important;
+  }
+
+  .formation__navigation {
+    padding-top: 8px;
+  }
+}
+
+/* Respect des préférences d'animation */
+@media (prefers-reduced-motion: reduce) {
+  .formation__piste {
+    transition: none;
+  }
+
+  .formation__piste--indice,
+  .formation__indication {
+    animation: none;
+  }
+}
+
+
+/* BOUTON COMPETENCES SUR L'ACCUEIL */
+
+
+/* ARRIVEE DE LA SECTION DEPUIS LE HAUT */
+
+.panneau--competences:not(.panneau--active) {
+  transform: translateY(-100%);
+}
+
+.panneau--competences.panneau--active {
+  transform: translate(0, 0);
+}
+
+/* SECTION COMPETENCES */
+
+.panneau--competences .section__contenu {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.competences__intro {
+  max-width: 800px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Cartes de compétences */
+.competences__grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.competences__carte {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 25px;
+
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.competences__carte:hover {
+  transform: translateY(-5px);
+  border-color: black;
+}
+
+.competences__carte h3,
+.competences__langues h3 {
+  font-size: 19px;
+  color: #111;
+  margin: 0 0 20px;
+}
+
+/* Technologies */
+.competences__elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.competences__elements span {
+  padding: 9px 14px;
+  background-color: #eee;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+/* Langues */
+.competences__langues {
+  margin-top: 25px;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+.competences__langues-liste {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.competences__langue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  padding: 15px;
+
+  font-size: 14px;
+}
+
+.competences__niveau {
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+}
+
+
+.hero__boutons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+  .competences__intro {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .competences__grille {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .competences__carte,
+  .competences__langues {
+    padding: 18px;
+  }
+
+  .competences__langues-liste {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+
+
+/* Téléphone */
+@media (max-width: 700px) {
+  .formation__intro {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .formation__parcours {
+    padding-left: 22px;
+  }
+
+  .formation__etape::before {
+    left: -30px;
+  }
+
+  .formation__carte {
+    padding: 18px;
+  }
+
+  .formation__carte h3 {
+    font-size: 17px;
+  }
+}
+
+
+/* Adaptation mobile */
+@media (max-width: 700px) {
+  .panneau {
+    padding: 20px 5% 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section__navigation {
+    flex-direction: column;
+  }
+}
+
+/* LIEN LINKEDIN */
+
+.contact-link {
+  position: fixed;
+  top: 30px;
+  left: 5%;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+
+  transition: opacity 0.3s;
+}
+
+/* Petit logo LinkedIn */
+.contact-link__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  background-color: #111;
+  color: white;
+  border-radius: 5px;
+
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* Survol */
+.contact-link:hover {
+  opacity: 0.6;
+}
+
+/* Date à droite sur l'accueil */
+.hero__entete {
+  justify-content: flex-end;
+}
+
+
+/* Souligner la section actuellement affichée */
+
+.menu-navigation__liste button.menu-navigation__actif {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  font-weight: 600;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+  .contact-link {
+    top: 25px;
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .contact-link__logo {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+/* BOUTONS DE L'ACCUEIL */
+
+.hero__boutons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.hero__boutons .bouton--accueil {
+  background-color: #e9edf4;
+  color: #30394a;
+
+  border: 1px solid #dce2eb;
+  border-radius: 10px;
+
+  padding: 15px 25px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Effet au survol */
+.hero__boutons .bouton--accueil:hover {
+  background-color: #d7e0ed;
+  color: #30394a;
+
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Effet lorsqu'on clique */
+.hero__boutons .bouton--accueil:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Navigation au clavier */
+.hero__boutons .bouton--accueil:focus-visible {
+  outline: 2px solid #586b8c;
+  outline-offset: 3px;
+}
+
+/* Téléphone */
+@media (max-width: 600px) {
+  .hero__boutons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero__boutons .bouton--accueil {
+    width: 100%;
+    max-width: 280px;
+  }
+}
