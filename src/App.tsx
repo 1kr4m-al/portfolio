@@ -178,44 +178,51 @@ function FormationDynamique({ formations }: { formations: Formation[] }) {
   }
 
   // Navigation avec la molette ou le trackpad
-  useEffect(() => {
-    const panneau = zoneRef.current?.closest(".panneau");
+  
+  
 
-    if (!panneau) return;
+useEffect(() => {
+  const panneau = zoneRef.current?.closest(".panneau");
 
-    function gererScroll(event: WheelEvent) {
-      if (!panneau.classList.contains("panneau--active")) return;
+  if (!panneau) return;
 
-      event.preventDefault();
+  function gererScroll(event: Event) {
+    if (!panneau || !panneau.classList.contains("panneau--active")) return;
 
-      const maintenant = Date.now();
+    const wheelEvent = event as WheelEvent;
 
-      // Éviter de passer plusieurs formations d'un coup
-      if (maintenant - dernierScroll.current < 850) return;
+    event.preventDefault();
 
-      if (maintenant - dernierEvenement.current > 180) {
-        accumulation.current = 0;
-      }
+    const maintenant = Date.now();
 
-      dernierEvenement.current = maintenant;
-      accumulation.current += event.deltaY;
+    if (maintenant - dernierScroll.current < 850) return;
 
-      if (Math.abs(accumulation.current) < 40) return;
-
-      const direction = accumulation.current > 0 ? 1 : -1;
-
+    if (maintenant - dernierEvenement.current > 180) {
       accumulation.current = 0;
-      dernierScroll.current = maintenant;
-
-      changerEtape(direction);
     }
 
-    panneau.addEventListener("wheel", gererScroll, { passive: false });
+    dernierEvenement.current = maintenant;
+    accumulation.current += wheelEvent.deltaY;
 
-    return () => {
-      panneau.removeEventListener("wheel", gererScroll);
-    };
-  }, [formations.length]);
+    if (Math.abs(accumulation.current) < 40) return;
+
+    const direction = accumulation.current > 0 ? 1 : -1;
+
+    accumulation.current = 0;
+    dernierScroll.current = maintenant;
+
+    changerEtape(direction);
+  }
+
+  panneau.addEventListener("wheel", gererScroll, { passive: false });
+
+  return () => {
+    panneau.removeEventListener("wheel", gererScroll);
+  };
+}, [formations.length]);
+
+
+
 
   // Navigation tactile
   function commencerTouch(event: TouchEvent<HTMLDivElement>) {
